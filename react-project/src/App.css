@@ -4,3 +4,16 @@
   padding: 2rem;
   text-align: center;
 }
+
+.bottom-section {
+  margin-top: 25px;
+}
+
+li {
+  list-style-type: none;
+}
+
+.results-block {
+  display: flex;
+  justify-content: space-between;
+}
