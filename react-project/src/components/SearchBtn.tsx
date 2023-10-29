@@ -1,8 +1,9 @@
 import { Component } from 'react';
-
-class SearchBtn extends Component {
+import { SearchBtnProps } from '../interfaces/search-btn-props';
+class SearchBtn extends Component<SearchBtnProps> {
   render() {
-    return <button>Search</button>;
+    const { onClick } = this.props;
+    return <button onClick={onClick}>Search</button>;
   }
 }
 
