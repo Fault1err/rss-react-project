@@ -8,6 +8,7 @@ class Search extends Component<SearchProps, SearchState> {
     const savedTerm = localStorage.getItem('searchTerm') || '';
     this.state = {
       searchTerm: savedTerm,
+      error: null,
     };
   }
 
@@ -23,7 +24,7 @@ class Search extends Component<SearchProps, SearchState> {
 
   render() {
     const { placeholder } = this.props;
-    console.log(this.props);
+
     return (
       <div className="top-section">
         <input
