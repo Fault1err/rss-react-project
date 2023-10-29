@@ -5,8 +5,9 @@ import { SearchProps, SearchState } from '../interfaces/search-props';
 class Search extends Component<SearchProps, SearchState> {
   constructor(props: SearchProps) {
     super(props);
+    const savedTerm = localStorage.getItem('searchTerm') || '';
     this.state = {
-      searchTerm: '',
+      searchTerm: savedTerm,
     };
   }
 
