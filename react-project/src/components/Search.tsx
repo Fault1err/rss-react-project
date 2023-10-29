@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { ChangeEvent } from 'react';
+import React, { Component, ChangeEvent } from 'react';
 import SearchBtn from './SearchBtn';
 import { SearchProps, SearchState } from '../interfaces/search-props';
 

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { SearchResultsProps } from '../interfaces/search-results-props';
-import { SearchResultsState } from '../interfaces/search-results-props';
+import {
+  SearchResultsProps,
+  SearchResultsState,
+} from '../interfaces/search-results-props';
 
 class SearchResults extends Component<SearchResultsProps, SearchResultsState> {
   constructor(props: SearchResultsProps) {
