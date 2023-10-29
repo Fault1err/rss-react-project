@@ -53,6 +53,8 @@ class SearchResults extends Component<SearchResultsProps, SearchResultsState> {
               <li key={result.id}>
                 <img src={result.image} width="250px" alt="picture" />
                 <p>{result.name}</p>
+                <p>{result.species}</p>
+                <p>{result.type}</p>
               </li>
             ))
           ) : (

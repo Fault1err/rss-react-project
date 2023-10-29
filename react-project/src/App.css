@@ -9,6 +9,10 @@ input {
   margin-bottom: 10px;
 }
 
+p {
+  margin: 0;
+}
+
 .bottom-section {
   margin-top: 25px;
 }
