@@ -10,10 +10,14 @@
 }
 
 li {
+  margin: 10px;
   list-style-type: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .results-block {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }

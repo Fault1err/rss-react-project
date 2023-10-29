@@ -11,39 +11,28 @@ class Search extends Component<SearchProps, SearchState> {
     };
   }
 
-  componentDidMount() {
-    const savedTerm = localStorage.getItem('searchTerm');
-    if (savedTerm) {
-      this.setState({ searchTerm: savedTerm });
-    }
-  }
-
-  componentWillUnmount() {
-    this.saveSearch = () => {
-      localStorage.setItem('searchTerm', this.state.searchTerm);
-    };
-  }
-
   changeInput = (event: ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value;
+    const searchTerm = event.target.value.trim();
     this.setState({ searchTerm });
   };
 
-  saveSearch = () => {
-    localStorage.setItem('searchTerm', this.state.searchTerm);
+  makeSearch = () => {
+    const { searchTerm } = this.state;
+    this.props.onSearch(searchTerm);
   };
 
   render() {
     const { placeholder } = this.props;
+    console.log(this.props);
     return (
       <div className="top-section">
         <input
           type="text"
-          placeholder={placeholder || ''}
+          placeholder={placeholder || 'Search...'}
           value={this.state.searchTerm}
           onChange={this.changeInput}
         />
-        <SearchBtn onClick={this.saveSearch} />
+        <SearchBtn onClick={this.makeSearch} />
       </div>
     );
   }
