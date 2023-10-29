@@ -12,4 +12,5 @@ export interface SearchResultsProps {
 
 export interface SearchResultsState {
   results: Character[];
+  loading: boolean;
 }
