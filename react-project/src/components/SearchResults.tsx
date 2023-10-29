@@ -51,8 +51,8 @@ class SearchResults extends Component<SearchResultsProps, SearchResultsState> {
           {results.length > 0 ? (
             results.map((result) => (
               <li key={result.id}>
-                <img src={result.image} alt="picture" />
-                {result.name}
+                <img src={result.image} width="250px" alt="picture" />
+                <p>{result.name}</p>
               </li>
             ))
           ) : (
