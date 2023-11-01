@@ -6,7 +6,7 @@ export interface ErrorBoundaryProps {
 
 export interface ErrorBoundaryStateProps {
   hasError: boolean;
-  error: Error | null;
+  error: string;
 }
 
 export type TypeError = Error | null;

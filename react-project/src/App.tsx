@@ -9,7 +9,7 @@ class App extends Component<object, SearchState> {
     super(props);
     this.state = {
       searchTerm: '',
-      error: null,
+      testError: false,
     };
   }
 
@@ -28,21 +28,18 @@ class App extends Component<object, SearchState> {
   };
 
   ErrorClick = () => {
-    try {
-      throw new Error('Test error!');
-    } catch (error) {
-      this.setState({ error: error as TypeError });
-    }
+    this.setState({ testError: !this.state.testError });
+    throw new Error('Test error!');
   };
 
   render() {
-    const { error } = this.state;
+    const { testError } = this.state;
 
-    if (error) {
-      console.error('This is an error:', error);
+    if (testError) {
+      console.error('This is an error:', testError);
       return (
         <div>
-          <h1>Something went wrong. {error.message}</h1>
+          <h1>Something went wrong. </h1>
         </div>
       );
     }

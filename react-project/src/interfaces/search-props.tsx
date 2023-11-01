@@ -5,5 +5,5 @@ export interface SearchProps {
 
 export interface SearchState {
   searchTerm: string;
-  error: Error | null;
+  testError: boolean;
 }
