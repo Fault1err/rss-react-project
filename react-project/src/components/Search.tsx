@@ -8,7 +8,7 @@ class Search extends Component<SearchProps, SearchState> {
     const savedTerm = localStorage.getItem('searchTerm') || '';
     this.state = {
       searchTerm: savedTerm,
-      error: null,
+      testError: false,
     };
   }
 
