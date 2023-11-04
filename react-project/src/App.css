@@ -51,3 +51,13 @@ li {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.results_flex {
+  display: flex;
+}
+
+.char {
+  display: block;
+  margin-top: 20px;
+  width: 500px;
+}

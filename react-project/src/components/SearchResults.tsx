@@ -36,8 +36,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
   console.log(results);
 
   return (
-    <div className="bottom-section">
-      <h2>Search Results</h2>
+    <>
       {loading ? (
         <div className="loader"></div>
       ) : (
@@ -56,7 +55,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
           )}
         </ul>
       )}
-    </div>
+    </>
   );
 };
 

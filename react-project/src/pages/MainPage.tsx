@@ -1,9 +1,11 @@
-import React, { FunctionComponent, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
+import { Outlet } from 'react-router-dom';
+
 import '../App.css';
 import Search from '../components/Search';
 import SearchResults from '../components/SearchResults';
 
-const MainPage: FunctionComponent = () => {
+function MainPage(): React.JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>(
     localStorage.getItem('searchTerm') || ''
   );
@@ -33,10 +35,16 @@ const MainPage: FunctionComponent = () => {
       <div className="App">
         <Search onSearch={saveSearch} />
         <button onClick={testErrorClick}>Test Error</button>
-        <SearchResults searchTerm={searchTerm} />
+        <div className="bottom-section">
+          <h2>Search Results</h2>
+          <div className="results_flex">
+            <SearchResults searchTerm={searchTerm} />
+            <Outlet />
+          </div>
+        </div>
       </div>
     </>
   );
-};
+}
 
 export default MainPage;
