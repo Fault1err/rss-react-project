@@ -67,6 +67,7 @@ li {
   height: 45px;
   width: 150px;
   justify-content: space-between;
+  margin-left: 43.5%;
 }
 
 .pag_span {
@@ -84,5 +85,4 @@ font-weight: bold;
   outline: none;
 	border-radius: 5px;
   font-weight: bold;
-
 }

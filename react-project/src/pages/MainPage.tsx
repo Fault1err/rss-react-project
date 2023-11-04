@@ -1,19 +1,28 @@
 import React, { useState, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
+import Pagination from '../components/Pagination';
 
 import '../App.css';
 import Search from '../components/Search';
 import SearchResults from '../components/SearchResults';
+import { useResults } from '../utils/getResults';
 
 function MainPage(): React.JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>(
     localStorage.getItem('searchTerm') || ''
   );
   const [testError, setTestError] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const { results, loading, totalPages } = useResults({
+    searchTerm,
+    currentPage,
+  });
 
   const saveSearch = useCallback((term: string): void => {
     localStorage.setItem('searchTerm', term);
     setSearchTerm(term);
+    setCurrentPage(1);
   }, []);
 
   const testErrorClick = useCallback((): void => {
@@ -30,6 +39,10 @@ function MainPage(): React.JSX.Element {
     );
   }
 
+  const makePageChange = (page: number): void => {
+    setCurrentPage(page);
+  };
+
   return (
     <>
       <div className="App">
@@ -37,9 +50,18 @@ function MainPage(): React.JSX.Element {
         <button onClick={testErrorClick}>Test Error</button>
         <div className="bottom-section">
           <h2>Search Results</h2>
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={makePageChange}
+          />
 
           <div className="results_flex">
-            <SearchResults searchTerm={searchTerm} />
+            <SearchResults
+              searchTerm={searchTerm}
+              results={results}
+              loading={loading}
+            />
             <Outlet />
           </div>
         </div>
