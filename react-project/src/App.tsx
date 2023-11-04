@@ -1,9 +1,14 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import MainPage from './pages/MainPage';
 
-const App: FunctionComponent = () => {
-  return <MainPage />;
-};
+function App(): React.JSX.Element {
+  return (
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+    </Routes>
+  );
+}
 
 export default App;
