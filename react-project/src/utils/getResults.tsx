@@ -16,7 +16,12 @@ export const useResults = ({
     () => new URLSearchParams(location.search),
     [location.search]
   );
-  searchParams.set('name', searchTerm);
+
+  if (searchTerm.trim() !== '') {
+    searchParams.set('name', searchTerm);
+  } else {
+    searchParams.delete('name');
+  }
   searchParams.set('page', currentPage.toString());
 
   const [results, setResults] = useState<Character[]>([]);
