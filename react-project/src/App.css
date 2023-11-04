@@ -31,8 +31,9 @@ li {
 }
 
 .loader {
- margin: 0 auto;
- margin-top: 80px;
+  position: fixed;
+  top: 50%;
+  left: 48.5%;
   transform: translate(-50%, -50%);
   background: #f3eeee;
   display: flex;
@@ -40,10 +41,10 @@ li {
   justify-content: center;
   align-items: center;
   border: 5px solid #f3f3f3;
-  border-top: 6px solid #ace6aa;
+  border-top: 6px solid #3ee438;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   animation: spin 2s linear infinite;
 }
 
