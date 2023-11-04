@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, useCallback } from 'react';
 import './App.css';
 import Search from './components/Search';
 import SearchResults from './components/SearchResults';
@@ -9,15 +9,15 @@ const App: FunctionComponent = () => {
   );
   const [testError, setTestError] = useState<boolean>(false);
 
-  const saveSearch = (term: string): void => {
+  const saveSearch = useCallback((term: string): void => {
     localStorage.setItem('searchTerm', term);
     setSearchTerm(term);
-  };
+  }, []);
 
-  const testErrorClick = (): void => {
-    setTestError(!testError);
+  const testErrorClick = useCallback((): void => {
+    setTestError((prevState) => !prevState);
     throw new Error('Test error!');
-  };
+  }, []);
 
   if (testError) {
     console.error('This is an error:', testError);

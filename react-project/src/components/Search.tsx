@@ -1,4 +1,9 @@
-import React, { useState, ChangeEvent, FunctionComponent } from 'react';
+import React, {
+  useState,
+  useCallback,
+  ChangeEvent,
+  FunctionComponent,
+} from 'react';
 import SearchBtn from './SearchBtn';
 import { SearchProps } from '../interfaces/search-props';
 
@@ -7,14 +12,17 @@ const Search: FunctionComponent<SearchProps> = ({ placeholder, onSearch }) => {
     localStorage.getItem('searchTerm') || ''
   );
 
-  const changeInput = (event: ChangeEvent<HTMLInputElement>): void => {
-    const searchTerm: string = event.target.value.trim();
-    setSearchTerm(searchTerm);
-  };
+  const changeInput = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      const searchTerm: string = event.target.value.trim();
+      setSearchTerm(searchTerm);
+    },
+    []
+  );
 
-  const makeSearch = (): void => {
+  const makeSearch = useCallback((): void => {
     onSearch(searchTerm);
-  };
+  }, [onSearch, searchTerm]);
 
   return (
     <div className="top-section">
