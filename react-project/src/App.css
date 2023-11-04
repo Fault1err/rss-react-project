@@ -61,3 +61,28 @@ li {
   margin-top: 20px;
   width: 500px;
 }
+
+.pagination {
+  display: flex;
+  height: 45px;
+  width: 150px;
+  justify-content: space-between;
+}
+
+.pag_span {
+align-self: center;
+padding: 2px;
+font-weight: bold;
+}
+
+.pag_btn {
+  display: block;
+  padding: 7px;
+  margin: 5px;
+  background-color: rgb(189, 221, 223);
+  border: 1px solid rgb(189, 221, 223);
+  outline: none;
+	border-radius: 5px;
+  font-weight: bold;
+
+}

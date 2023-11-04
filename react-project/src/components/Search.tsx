@@ -7,7 +7,10 @@ import React, {
 import SearchBtn from './SearchBtn';
 import { SearchProps } from '../interfaces/search-props';
 
-const Search: FunctionComponent<SearchProps> = ({ placeholder, onSearch }) => {
+const Search: FunctionComponent<SearchProps> = ({
+  placeholder = 'Search...',
+  onSearch,
+}) => {
   const [searchTerm, setSearchTerm] = useState<string>(
     localStorage.getItem('searchTerm') || ''
   );
@@ -28,7 +31,7 @@ const Search: FunctionComponent<SearchProps> = ({ placeholder, onSearch }) => {
     <div className="top-section">
       <input
         type="text"
-        placeholder={placeholder || 'Search...'}
+        placeholder={placeholder}
         value={searchTerm}
         onChange={changeInput}
       />

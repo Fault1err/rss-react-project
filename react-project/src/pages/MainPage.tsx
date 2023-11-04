@@ -37,6 +37,7 @@ function MainPage(): React.JSX.Element {
         <button onClick={testErrorClick}>Test Error</button>
         <div className="bottom-section">
           <h2>Search Results</h2>
+
           <div className="results_flex">
             <SearchResults searchTerm={searchTerm} />
             <Outlet />
