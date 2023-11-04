@@ -1,76 +1,63 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SearchResultsProps,
-  SearchResultsState,
+  Character,
 } from '../interfaces/search-results-props';
 
-class SearchResults extends Component<SearchResultsProps, SearchResultsState> {
-  constructor(props: SearchResultsProps) {
-    super(props);
-    this.state = {
-      results: [],
-      loading: true,
+const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
+  const [results, setResults] = useState<Character[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect((): void => {
+    const fetchSearchResults = (): void => {
+      setLoading(true);
+      const trimmedSearchTerm: string = searchTerm.trim();
+      let apiUrl: string = 'https://rickandmortyapi.com/api/character/';
+
+      if (trimmedSearchTerm) {
+        apiUrl += `?name=${trimmedSearchTerm}`;
+      }
+
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          setResults(data.results);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+          setLoading(false);
+        });
     };
-  }
 
-  componentDidMount() {
-    this.fetchSearchResults();
-  }
+    fetchSearchResults();
+  }, [searchTerm]);
 
-  componentDidUpdate(prevProps: SearchResultsProps) {
-    if (prevProps.searchTerm !== this.props.searchTerm) {
-      this.fetchSearchResults();
-    }
-  }
+  console.log(results);
 
-  fetchSearchResults = () => {
-    const { searchTerm } = this.props;
-    this.setState({ loading: true });
-    const trimmedSearchTerm = searchTerm.trim();
-    let apiUrl = 'https://rickandmortyapi.com/api/character/';
-
-    if (trimmedSearchTerm) {
-      apiUrl += `?name=${trimmedSearchTerm}`;
-    }
-
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ results: data.results, loading: false });
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-        this.setState({ loading: false });
-      });
-  };
-
-  render() {
-    const { results, loading } = this.state;
-
-    return (
-      <div className="bottom-section">
-        <h2>Search Results</h2>
-        {loading ? (
-          <div className="loader"></div>
-        ) : (
-          <ul className="results-block">
-            {results.length > 0 ? (
-              results.map((result) => (
-                <li key={result.id}>
-                  <img src={result.image} width="250px" alt="picture" />
-                  <p>{result.name}</p>
-                  <p>{result.species}</p>
-                  <p>{result.type}</p>
-                </li>
-              ))
-            ) : (
-              <li>No results found</li>
-            )}
-          </ul>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="bottom-section">
+      <h2>Search Results</h2>
+      {loading ? (
+        <div className="loader"></div>
+      ) : (
+        <ul className="results-block">
+          {results.length > 0 ? (
+            results.map((result) => (
+              <li key={result.id}>
+                <img src={result.image} width="250px" alt="picture" />
+                <p>{result.name}</p>
+                <p>{result.species}</p>
+                <p>{result.type}</p>
+              </li>
+            ))
+          ) : (
+            <li>No results found</li>
+          )}
+        </ul>
+      )}
+    </div>
+  );
+};
 
 export default SearchResults;

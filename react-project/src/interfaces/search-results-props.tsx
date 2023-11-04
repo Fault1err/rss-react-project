@@ -9,8 +9,3 @@ export interface Character {
 export interface SearchResultsProps {
   searchTerm: string;
 }
-
-export interface SearchResultsState {
-  results: Character[];
-  loading: boolean;
-}

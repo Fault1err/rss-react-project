@@ -1,59 +1,42 @@
-import { Component } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import './App.css';
 import Search from './components/Search';
 import SearchResults from './components/SearchResults';
-import { SearchState } from './interfaces/search-props';
 
-class App extends Component<object, SearchState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      searchTerm: '',
-      testError: false,
-    };
-  }
+const App: FunctionComponent = () => {
+  const [searchTerm, setSearchTerm] = useState<string>(
+    localStorage.getItem('searchTerm') || ''
+  );
+  const [testError, setTestError] = useState<boolean>(false);
 
-  componentDidMount() {
-    const savedTerm = localStorage.getItem('searchTerm');
-    if (savedTerm) {
-      this.setState({ searchTerm: savedTerm });
-    } else {
-      this.setState({ searchTerm: '' });
-    }
-  }
-
-  saveSearch = (term: string) => {
+  const saveSearch = (term: string): void => {
     localStorage.setItem('searchTerm', term);
-    this.setState({ searchTerm: term });
+    setSearchTerm(term);
   };
 
-  ErrorClick = () => {
-    this.setState({ testError: !this.state.testError });
+  const testErrorClick = (): void => {
+    setTestError(!testError);
     throw new Error('Test error!');
   };
 
-  render() {
-    const { testError } = this.state;
-
-    if (testError) {
-      console.error('This is an error:', testError);
-      return (
-        <div>
-          <h1>Something went wrong. </h1>
-        </div>
-      );
-    }
-
+  if (testError) {
+    console.error('This is an error:', testError);
     return (
-      <>
-        <div className="App">
-          <Search onSearch={this.saveSearch} />
-          <button onClick={this.ErrorClick}>Test Error</button>
-          <SearchResults searchTerm={this.state.searchTerm} />
-        </div>
-      </>
+      <div>
+        <h1>Something went wrong.</h1>
+      </div>
     );
   }
-}
+
+  return (
+    <>
+      <div className="App">
+        <Search onSearch={saveSearch} />
+        <button onClick={testErrorClick}>Test Error</button>
+        <SearchResults searchTerm={searchTerm} />
+      </div>
+    </>
+  );
+};
 
 export default App;
