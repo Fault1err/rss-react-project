@@ -6,11 +6,32 @@ export interface Character {
   type: string;
 }
 
-export interface SearchResultsProps {
-  searchTerm: string;
+export interface DetailedCharacter {
+  id: number;
+  name: string;
+  image: string;
+  species: string;
+  type: string;
+  location: Location;
+}
+interface Location {
+  name: string;
+  url: string;
 }
 
-export interface SearchResultsState {
+export interface ResultsResponse {
+  results: Character[];
+  info: {
+    pages: number;
+  };
+}
+export interface SearchResultsProps {
   results: Character[];
   loading: boolean;
+  searchTerm: string;
+}
+export interface UseSearchResultsProps {
+  searchTerm: string;
+  currentPage: number;
+  charsPerPage: string;
 }
