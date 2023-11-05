@@ -79,10 +79,14 @@ li {
   display: block;
   margin-top: 20px;
   padding: 10px;
-  border: 1px solid rgb(161, 194, 124);
+  border: 3px solid rgb(164, 231, 87);
  width: 280px;
-  height: 400px;
+  height: 600px;
+  margin-left: 20px;
+}
 
+.detail-text {
+  font-weight: bold;
 }
 
 .pagination {

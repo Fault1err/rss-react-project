@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { FunctionComponent, useEffect, useState, useRef } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { DetailedCharacter } from '../interfaces/search-results-props';
 import '../App.css';
 
@@ -11,6 +11,23 @@ const CharPage: FunctionComponent = () => {
     initialState
   );
   const [loading, setLoading] = useState<boolean>(true);
+  const navigate = useNavigate();
+  const refDetail = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const outsideClick = (event: MouseEvent): void => {
+      if (
+        refDetail.current &&
+        !refDetail.current.contains(event.target as Node)
+      ) {
+        navigate('/', { replace: true });
+      }
+    };
+    document.addEventListener('mousedown', outsideClick);
+    return (): void => {
+      document.removeEventListener('mousedown', outsideClick);
+    };
+  }, [navigate]);
 
   useEffect(() => {
     const fetchCharacterDetails = async () => {
@@ -36,15 +53,16 @@ const CharPage: FunctionComponent = () => {
   }
 
   return (
-    <div className="char">
+    <div className="char" ref={refDetail}>
       {loading ? (
         <div className="loader-details">LOADING...</div>
       ) : (
         <>
-          <img src={character.image} width="250px" alt="picture" />
-          <p>Name: {character.name}</p>
-          <p>Species: {character.species}</p>
-          <p>Location: {character.location.name}</p>
+          <h3>Character</h3>
+          <img src={character.image} width="220px" alt="picture" />
+          <p className="detail-text">Name: {character.name}</p>
+          <p className="detail-text">Species: {character.species}</p>
+          <p className="detail-text">Location: {character.location.name}</p>
         </>
       )}
     </div>
