@@ -48,11 +48,18 @@ const CharPage: FunctionComponent = () => {
   }, [id]);
 
   if (!character) {
-    return <div>Character not found.</div>;
+    return <div>Looking for a character, please wait...</div>;
   }
+
+  const closeBtnClick = (): void => {
+    navigate('/', { replace: true });
+  };
 
   return (
     <div className="char" ref={refDetail}>
+      <button className="close-btn" onClick={closeBtnClick}>
+        X
+      </button>
       {loading ? (
         <div className="loader-details">LOADING...</div>
       ) : (
