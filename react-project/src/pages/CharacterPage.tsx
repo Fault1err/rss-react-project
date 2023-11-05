@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useEffect, useState, useRef } from 'react';
+import React, {
+  FunctionComponent,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { DetailedCharacter } from '../interfaces/search-results-props';
 import fetchCharacter from '../utils/getCharacter';
@@ -12,25 +18,23 @@ const CharPage: FunctionComponent = () => {
     initialState
   );
   const [loading, setLoading] = useState<boolean>(true);
+  const charRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-  const refDetail = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const outsideClick = (event: MouseEvent): void => {
-      if (
-        refDetail.current &&
-        !refDetail.current.contains(event.target as Node)
-      ) {
-        navigate('/', { replace: true });
-      }
-    };
-    document.addEventListener('mousedown', outsideClick);
-    return (): void => {
-      document.removeEventListener('mousedown', outsideClick);
-    };
+  const closeDetails = useCallback((): void => {
+    navigate('/', { replace: true });
   }, [navigate]);
 
-  useEffect(() => {
+  const clickOutside = useCallback(
+    (event: React.MouseEvent): void => {
+      if (event.target === event.currentTarget) {
+        closeDetails();
+      }
+    },
+    [closeDetails]
+  );
+
+  useEffect((): void => {
     if (id) {
       const fetchCharData = async (): Promise<void> => {
         setLoading(true);
@@ -51,26 +55,24 @@ const CharPage: FunctionComponent = () => {
     return <div>Looking for a character, please wait...</div>;
   }
 
-  const closeBtnClick = (): void => {
-    navigate('/', { replace: true });
-  };
-
   return (
-    <div className="char" ref={refDetail}>
-      <button className="close-btn" onClick={closeBtnClick}>
-        X
-      </button>
-      {loading ? (
-        <div className="loader-details">LOADING...</div>
-      ) : (
-        <>
-          <h3>Character</h3>
-          <img src={character.image} width="220px" alt="picture" />
-          <p className="detail-text">Name: {character.name}</p>
-          <p className="detail-text">Species: {character.species}</p>
-          <p className="detail-text">Location: {character.location.name}</p>
-        </>
-      )}
+    <div className="char-background" onClick={clickOutside} role="presentation">
+      <div ref={charRef} className="char">
+        <button className="close-btn" onClick={closeDetails}>
+          X
+        </button>
+        {loading ? (
+          <div className="loader-details">LOADING...</div>
+        ) : (
+          <>
+            <h3>Character</h3>
+            <img src={character.image} width="220px" alt="picture" />
+            <p className="detail-text">Name: {character.name}</p>
+            <p className="detail-text">Species: {character.species}</p>
+            <p className="detail-text">Location: {character.location.name}</p>
+          </>
+        )}
+      </div>
     </div>
   );
 };
