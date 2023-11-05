@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
 import Pagination from '../components/Pagination';
-
 import '../App.css';
 import Search from '../components/Search';
 import SearchResults from '../components/SearchResults';
 import { useResults } from '../utils/getResults';
+import CharsPerPage from '../components/CharsAmountOnPage';
 
 function MainPage(): React.JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>(
@@ -13,10 +13,17 @@ function MainPage(): React.JSX.Element {
   );
   const [testError, setTestError] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [charsPerPage, setCharsPerPage] = useState<string>('20');
+
+  const makeAmountPerPageChange = useCallback((num: string): void => {
+    setCharsPerPage(num);
+    setCurrentPage(1);
+  }, []);
 
   const { results, loading, totalPages } = useResults({
     searchTerm,
     currentPage,
+    charsPerPage,
   });
 
   const saveSearch = useCallback((term: string): void => {
@@ -55,6 +62,7 @@ function MainPage(): React.JSX.Element {
             currentPage={currentPage}
             onPageChange={makePageChange}
           />
+          <CharsPerPage setCharAmount={makeAmountPerPageChange} />
 
           <div className="results_flex">
             <SearchResults

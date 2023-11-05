@@ -13,4 +13,5 @@ export interface SearchResultsProps {
 export interface UseSearchResultsProps {
   searchTerm: string;
   currentPage: number;
+  charsPerPage: string;
 }

@@ -8,6 +8,7 @@ import {
 export const useResults = ({
   searchTerm,
   currentPage,
+  charsPerPage,
 }: UseSearchResultsProps) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,7 +38,11 @@ export const useResults = ({
       try {
         const response = await fetch(apiUrl);
         const data = await response.json();
-        setResults(data.results);
+        const perPageResults = data.results.slice(
+          0,
+          parseInt(charsPerPage, 10)
+        );
+        setResults(perPageResults);
         setTotalPages(data.info.pages);
         setLoading(false);
 
@@ -49,7 +54,7 @@ export const useResults = ({
     };
 
     fetchSearchResults();
-  }, [searchTerm, currentPage, navigate, searchParams]);
+  }, [searchTerm, currentPage, charsPerPage, navigate, searchParams]);
 
   return { results, loading, totalPages };
 };
