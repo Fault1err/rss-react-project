@@ -8,7 +8,7 @@ function App(): React.JSX.Element {
   return (
     <Routes>
       <Route path="/" element={<MainPage />}>
-        <Route path="/char" element={<CharPage />} />
+        <Route path="/char/:id" element={<CharPage />} />
       </Route>
     </Routes>
   );

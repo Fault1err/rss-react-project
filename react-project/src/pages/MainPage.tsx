@@ -70,6 +70,7 @@ function MainPage(): React.JSX.Element {
               results={results}
               loading={loading}
             />
+
             <Outlet />
           </div>
         </div>

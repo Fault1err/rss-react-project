@@ -48,6 +48,24 @@ li {
   animation: spin 2s linear infinite;
 }
 
+.loader-details {
+  position: fixed;
+  top: 50%;
+  right: 22%;
+  transform: translate(-50%, -50%);
+  background: #f3eeee;
+  display: flex;
+    z-index: 50; 
+  justify-content: center;
+  align-items: center;
+  border: 5px solid #f3f3f3;
+  border-top: 6px solid #3ee438;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -60,7 +78,11 @@ li {
 .char {
   display: block;
   margin-top: 20px;
-  width: 500px;
+  padding: 10px;
+  border: 1px solid rgb(161, 194, 124);
+ width: 280px;
+  height: 400px;
+
 }
 
 .pagination {
@@ -96,4 +118,13 @@ font-weight: bold;
   outline: none;
   font-weight: bold;
   padding: 5px;
+}
+
+.char-link {
+  text-decoration: none;
+  color: rgb(59, 58, 58);
+}
+
+.results-section {
+  width: 100%;
 }
