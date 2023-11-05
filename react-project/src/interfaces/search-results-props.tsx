@@ -18,6 +18,13 @@ interface Location {
   name: string;
   url: string;
 }
+
+export interface ResultsResponse {
+  results: Character[];
+  info: {
+    pages: number;
+  };
+}
 export interface SearchResultsProps {
   results: Character[];
   loading: boolean;

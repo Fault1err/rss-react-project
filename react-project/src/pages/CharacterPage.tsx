@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { DetailedCharacter } from '../interfaces/search-results-props';
+import fetchCharacter from '../utils/getCharacter';
 import '../App.css';
 
 const initialState: DetailedCharacter | null = null;
@@ -30,22 +31,20 @@ const CharPage: FunctionComponent = () => {
   }, [navigate]);
 
   useEffect(() => {
-    const fetchCharacterDetails = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(
-          `https://rickandmortyapi.com/api/character/${id}`
-        );
-        const data = await response.json();
-        setCharacter(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching character details:', error);
-        setLoading(false);
-      }
-    };
+    if (id) {
+      const fetchCharData = async (): Promise<void> => {
+        setLoading(true);
+        try {
+          const data: DetailedCharacter = await fetchCharacter(id);
+          setCharacter(data);
+          setLoading(false);
+        } catch (error) {
+          setLoading(false);
+        }
+      };
 
-    fetchCharacterDetails();
+      fetchCharData();
+    }
   }, [id]);
 
   if (!character) {
