@@ -7,11 +7,11 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "format:fix": "prettier . --write",
     "preview": "vite preview",
-    "prepare": "cd .. && husky install react-project/.husky",
-    "test": "jest",
-    "test:coverage": "jest --coverage"
+    "prepare": "cd .. && husky install react-project/.husky"
   },
   "dependencies": {
     "react": "^18.2.0",
