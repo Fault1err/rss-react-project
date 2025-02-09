@@ -23,7 +23,7 @@ class ErrorBoundary extends Component<
     };
   }
 
-  componentDidCatch(error: Error) {
+  componentDidCatch(error: Error): void {
     console.error('This is an error:', error.toString());
   }
 

@@ -1,42 +1,43 @@
-import React, { Component, ChangeEvent } from 'react';
+import React, {
+  useState,
+  useCallback,
+  ChangeEvent,
+  FunctionComponent,
+} from 'react';
 import SearchBtn from './SearchBtn';
-import { SearchProps, SearchState } from '../interfaces/search-props';
+import { SearchProps } from '../interfaces/search-props';
 
-class Search extends Component<SearchProps, SearchState> {
-  constructor(props: SearchProps) {
-    super(props);
-    const savedTerm = localStorage.getItem('searchTerm') || '';
-    this.state = {
-      searchTerm: savedTerm,
-      testError: false,
-    };
-  }
+const Search: FunctionComponent<SearchProps> = ({
+  placeholder = 'Search...',
+  onSearch,
+}) => {
+  const [searchTerm, setSearchTerm] = useState<string>(
+    localStorage.getItem('searchTerm') || ''
+  );
 
-  changeInput = (event: ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value.trim();
-    this.setState({ searchTerm });
-  };
+  const changeInput = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      const searchTerm: string = event.target.value.trim();
+      setSearchTerm(searchTerm);
+    },
+    []
+  );
 
-  makeSearch = () => {
-    const { searchTerm } = this.state;
-    this.props.onSearch(searchTerm);
-  };
+  const makeSearch = useCallback((): void => {
+    onSearch(searchTerm);
+  }, [onSearch, searchTerm]);
 
-  render() {
-    const { placeholder } = this.props;
-
-    return (
-      <div className="top-section">
-        <input
-          type="text"
-          placeholder={placeholder || 'Search...'}
-          value={this.state.searchTerm}
-          onChange={this.changeInput}
-        />
-        <SearchBtn onClick={this.makeSearch} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="top-section">
+      <input
+        type="text"
+        placeholder={placeholder}
+        value={searchTerm}
+        onChange={changeInput}
+      />
+      <SearchBtn onClick={makeSearch} />
+    </div>
+  );
+};
 
 export default Search;
